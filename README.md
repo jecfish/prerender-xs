@@ -1,27 +1,64 @@
-# PrerenderXs
+# prerender-xs
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
+A framework agnostic library to prerender static web pages for Single Page Application (SPA). Built with [Puppeteer](https://github.com/GoogleChrome/puppeteer).
 
-## Development server
+Typescript is supported out of the box.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* this is a fork from to [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) but without the need to use webpack.
 
-## Code scaffolding
+# How to use it
+1. Run `npm install prerender-xs`.
+2. Use it in your code:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+// create a file with any name. e.g. prerender-run.js
 
-## Build
+const { prerenderer } = require('prerender-xs');
+const path = require('path');
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+const minimalConfig = {
+    routes: ['/', '/route1', 'route2/b'], // all the routes you want to preredenr
+    staticDir: path.join(__dirname, '/dist'), // where your SPA located
+}
 
-## Running unit tests
+const data = await prerenderer(minimalConfig);
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
 
-## Running end-to-end tests
+3. For example, you might want to prerender after your application build, you can hook it to npm lifecycle.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+// your package.json file
 
-## Further help
+{
+    ...
+    "script": {
+        "build": "your existing build command",
+        "postbuild": "node prerender-run.js"
+    }
+}
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
+
+# Advance configurations
+
+Some advance configuration are supported. Most configuration names are obvious, if need further clarification, can refer to [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) (please take notes that not all config of `prerender-spa-plugin` are supported in `prerender-xs`).
+
+```
+const fullConfig = {
+    // mandatory config
+    routes: ['/', '/route1', 'route2/b'],
+    staticDir: path.join(__dirname, '/dist'),
+    // optional config
+    outputDir: path.join(__dirname, '/public'),
+    indexHTML: '<html></html>', // instead of index.html file, you pass in the content
+
+    renderOptions: {
+        maxConcurrentRoutes: 10, //default is 0, means unlimited
+        skipThirdPartyRequests: true, // default is false
+        renderAfterDocumentEvent: 'prerender-ready', // your custom event
+        renderAfterTime: 1000, // wait for x milliseconds 
+        renderAfterElementExists: '#container', // wait for element
+    }
+}
+```
