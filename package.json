@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "prepublish": "npm run build",
+    "publish": "cd dist/prerender-xs && npm publish",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

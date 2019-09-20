@@ -9,6 +9,11 @@ export class PrerenderUtils {
         return new Promise((resolve, _) => {
             // Render when an event fires on the document.
             if (options.renderAfterDocumentEvent) {
+                // tslint:disable-next-line
+                if (window['__PRERENDER_STATUS'] && window['__PRERENDER_STATUS'].__DOCUMENT_EVENT_RESOLVED) {
+                    resolve();
+                }
+
                 document.addEventListener(options.renderAfterDocumentEvent, () => resolve());
 
                 // Render after a certain number of milliseconds.
