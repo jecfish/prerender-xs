@@ -1,8 +1,9 @@
 {
   "name": "prerender-xs",
   "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^8.2.7",
-    "@angular/core": "^8.2.7"
+  "dependencies": {
+    "express": "^4.17.1",
+    "promise-limit": "^2.7.0",
+    "puppeteer": "^1.20.0"
   }
 }

@@ -1,8 +1,9 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
+// const puppeteer = require('puppeteer');
 const express = require('express');
 const { join, dirname } = require('path');
 const { writeFileSync, mkdirSync, existsSync } = require('fs');
-const promiseLimit = require('promise-limit')
+const promiseLimit = require('promise-limit');
 
 export interface UserOptions {
     staticDir: string;
@@ -83,7 +84,7 @@ async function handleRequestInterception(options, page, baseURL) {
     })
 }
 
-async function prerenderer({ routes, staticDir, indexHtml, renderAfterDocumentEvent, skipThirdPartyRequests = false, maxConcurrentRoutes = 0 }) {
+export async function prerenderer({ routes, staticDir, indexHtml, renderAfterDocumentEvent, skipThirdPartyRequests = false, maxConcurrentRoutes = 0 }) {
     console.log('[prerendering] prerendering started');
     // start server
     const server = new Server({ staticDir, indexHtml });
@@ -132,4 +133,4 @@ async function prerenderer({ routes, staticDir, indexHtml, renderAfterDocumentEv
     });
 }
 
-module.exports = prerenderer;
+// module.exports = prerenderer;
