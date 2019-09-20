@@ -1,24 +1,64 @@
-# PrerenderXs
+# prerender-xs
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.7.
+A framework agnostic library to prerender static web pages for Single Page Application (SPA). Built with [Puppeteer](https://github.com/GoogleChrome/puppeteer).
 
-## Code scaffolding
+Typescript is supported out of the box.
 
-Run `ng generate component component-name --project prerender-xs` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project prerender-xs`.
-> Note: Don't forget to add `--project prerender-xs` or else it will be added to the default project in your `angular.json` file. 
+* this is a fork from to [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) but without the need to use webpack.
 
-## Build
+# How to use it
+1. Run `npm install prerender-xs`.
+2. Use it in your code:
 
-Run `ng build prerender-xs` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+// create a file with any name. e.g. prerender-run.js
 
-## Publishing
+const { prerenderer } = require('prerender-xs');
+const path = require('path');
 
-After building your library with `ng build prerender-xs`, go to the dist folder `cd dist/prerender-xs` and run `npm publish`.
+const minimalConfig = {
+    routes: ['/', '/route1', 'route2/b'], // all the routes you want to preredenr
+    staticDir: path.join(__dirname, '/dist'), // where your SPA located
+}
 
-## Running unit tests
+const data = await prerenderer(minimalConfig);
 
-Run `ng test prerender-xs` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
 
-## Further help
+3. For example, you might want to prerender after your application build, you can hook it to npm lifecycle.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
+// your package.json file
+
+{
+    ...
+    "script": {
+        "build": "your existing build command",
+        "postbuild": "node prerender-run.js"
+    }
+}
+
+```
+
+# Advance configurations
+
+Some advance configuration are supported. Most configuration names are obvious, if need further clarification, can refer to [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) (please take notes that not all config of `prerender-spa-plugin` are supported in `prerender-xs`).
+
+```
+const fullConfig = {
+    // mandatory config
+    routes: ['/', '/route1', 'route2/b'],
+    staticDir: path.join(__dirname, '/dist'),
+    // optional config
+    outputDir: path.join(__dirname, '/public'),
+    indexHTML: '<html></html>', // instead of index.html file, you pass in the content
+
+    renderOptions: {
+        maxConcurrentRoutes: 10, //default is 0, means unlimited
+        skipThirdPartyRequests: true, // default is false
+        renderAfterDocumentEvent: 'prerender-ready', // your custom event
+        renderAfterTime: 1000, // wait for x milliseconds 
+        renderAfterElementExists: '#container', // wait for element
+    }
+}
+```
