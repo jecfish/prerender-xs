@@ -2,4 +2,4 @@
  * Public API Surface of prerender-xs
  */
 
-export * from './lib/prerender';
+export * from './lib/prerenderer';
