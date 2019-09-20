@@ -18,7 +18,7 @@ export async function render(config: UserOptions) {
 
     const browser = await puppeteer.launch();
 
-    const limiter = promiseLimit(renderingOptions.maxConcurrentRoutes || 0);
+    const limiter = promiseLimit(renderingOptions.maxConcurrentRoutes || 10);
 
     return Promise.all(
         config.routes.map(route => {

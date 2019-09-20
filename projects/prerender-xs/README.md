@@ -51,10 +51,10 @@ const fullConfig = {
     staticDir: path.join(__dirname, '/dist'),
     // optional config
     outputDir: path.join(__dirname, '/public'),
-    indexHTML: '<html></html>', // instead of index.html file, you pass in the content
+    indexHtml: '<html></html>', // instead of index.html file, you pass in the content
 
     renderOptions: {
-        maxConcurrentRoutes: 10, //default is 0, means unlimited
+        maxConcurrentRoutes: 100, //default is 10, set to 99 if you hv powerful pc
         skipThirdPartyRequests: true, // default is false
         renderAfterDocumentEvent: 'prerender-ready', // your custom event
         renderAfterTime: 1000, // wait for x milliseconds 
