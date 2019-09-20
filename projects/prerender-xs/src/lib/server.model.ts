@@ -18,7 +18,7 @@ export class Server {
             res.sendFile(join(this.options.staticDir, 'index.html')));
 
         this.listener = app.listen(0); // dynamic port
-        return { port: this.listener.address().port };
+        return { port: this.listener.address().port as number };
     }
 
     destroy() {

@@ -11,7 +11,7 @@ export async function render(config: UserOptions) {
 
     // start server
     const server = new Server({ staticDir: config.staticDir, indexHtml: config.indexHtml });
-    const port = server.start();
+    const { port } = server.start();
 
     const baseURL = `http://localhost:${port}`;
     console.log(`[prerendering] server started: ${baseURL}!`);
