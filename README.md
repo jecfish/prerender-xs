@@ -40,6 +40,8 @@ const data = await prerenderer(minimalConfig);
 
 ```
 
+Here is the example on how you can use in Angular: https://github.com/chybie/ng-my/blob/master/projects/site2019/index-html-transform.js.
+
 # Advance configurations
 
 Some advance configuration are supported. Most configuration names are obvious, if need further clarification, can refer to [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) (please take notes that not all config of `prerender-spa-plugin` are supported in `prerender-xs`).
