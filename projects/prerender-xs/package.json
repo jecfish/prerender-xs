@@ -1,6 +1,12 @@
 {
   "name": "prerender-xs",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "license": "MIT",
+  "repository": "chybie/prerender-xs",
+  "author": {
+    "name": "Jecelyn Yeen",
+    "url": "https://twitter.com/JecelynYeen"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "promise-limit": "^2.7.0",
